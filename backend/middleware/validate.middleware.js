@@ -9,10 +9,6 @@ const validateRegister = [
     .isEmail()
     .withMessage("Please enter a valid email")
     .normalizeEmail(),
-  body("number")
-    .trim()
-    .isLength({ min: 10, max: 10 })
-    .withMessage("Phone number must be 10 numbers"),
   body("password")
     .isLength({ min: 6 })
     .withMessage("Password must be at least 6 characters long"),

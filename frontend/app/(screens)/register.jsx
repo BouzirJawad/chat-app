@@ -1,5 +1,5 @@
 import { View, Text, TextInput, Image, Pressable, Alert } from "react-native";
-
+import { useAuth } from "../context/AuthProvider"
 import { useRouter } from "expo-router";
 import axios from "axios";
 import { Formik } from "formik";
@@ -19,11 +19,12 @@ const RegisterSchema = Yup.object().shape({
 
 export default function RegisterScreen() {
   const router = useRouter();
-
+  const { ip } = useAuth()
+ 
   const handleRegister = async (values) => {
     try {
       const res = await axios.post(
-        "http://192.168.230.28:7460/api/auth/register",
+        `http://${ip}:7460/api/auth/register`,
         values
       );
       if (res.status === 201) {

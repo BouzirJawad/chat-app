@@ -7,6 +7,7 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null)
+  const [ip, setIP] = useState("192.168.156.28")
 
   useEffect(() => {
     const loadStoredData = async () => {
@@ -27,7 +28,7 @@ const AuthProvider = ({ children }) => {
 
   const getUser = async () => {
     try {
-      const res = await axios.get('http://192.168.230.28.252:7460/api/profile/me');
+      const res = await axios.get(`http://${ip}:7460/api/profile/me`);
       const newUser = res.data;
       setUser(newUser);
       await AsyncStorage.setItem('user', JSON.stringify(newUser));
@@ -69,6 +70,7 @@ const AuthProvider = ({ children }) => {
     () => ({
       token,
       user,
+      ip,
       setUser,
       login,
       logout

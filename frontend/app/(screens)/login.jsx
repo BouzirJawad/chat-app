@@ -21,13 +21,13 @@ const LoginSchema = Yup.object().shape({
 });
 
 export default function LoginScreen() {
-  const { login } = useAuth();
+  const { login, ip } = useAuth();
   const router = useRouter();
 
   const handleLogin = async (values) => {
     try {
       const res = await axios.post(
-        "http://192.168.230.28:7460/api/auth/login",
+        `http://${ip}:7460/api/auth/login`,
         values
       );
 
@@ -40,7 +40,7 @@ export default function LoginScreen() {
           visibilityTime: 2000,
         });
         login(newToken);
-        router.replace("/(auth)/dashBoard");
+        router.replace("/(auth)/HomeScreen");
       }
     } catch (err) {
       Alert.alert(
