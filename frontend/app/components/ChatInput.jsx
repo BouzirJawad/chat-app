@@ -5,7 +5,7 @@ import { TextInput, Button, View, Alert } from "react-native";
 
 const ChatInput = ({ roomCode }) => {
   const [message, setMessage] = useState('');
-  const socket = useSocket();
+  const { socket } = useSocket();
   const { user } = useAuth();
 
   const sendMessage = () => {
@@ -25,14 +25,17 @@ const ChatInput = ({ roomCode }) => {
   };
 
   return (
-    <View className="flex-row items-center space-x-2 p-2">
+    <View className="flex-row items-center gap-1 space-x-2 p-2">
       <TextInput
         value={message}
         onChangeText={setMessage}
         placeholder="Type a message..."
-        className="flex-1 border rounded-xl px-4 py-2 dark:bg-gray-800 dark:text-white"
+        className="flex-1 border rounded-xl px-4 py-2"
       />
-      <Button title="Send" onPress={sendMessage} />
+      <View className="rounded-2xl">
+
+        <Button title="Send" onPress={sendMessage} />
+      </View>
     </View>
   );
 };

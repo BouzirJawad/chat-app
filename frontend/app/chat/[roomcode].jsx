@@ -7,9 +7,12 @@ import ChatInput from "../components/ChatInput";
 
 export default function ChatRoom() {
   const { roomCode } = useLocalSearchParams();
-  const socket = useSocket();
+  const { socket } = useSocket();
   const { user } = useAuth();
   const [messages, setMessages] = useState([]);
+
+  console.log('roomCode:', roomCode);
+
 
   useEffect(() => {
     if (!socket || !roomCode) return;

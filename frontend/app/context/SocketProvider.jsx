@@ -31,10 +31,13 @@ export const SocketProvider = ({ children }) => {
 
   const createRoom = () => {
     return new Promise((resolve) => {
-      socket.emit("create_room", { username: user.username });
-      socket.on("room_created", ({ roomCode }) => {
+      const handler = ({ roomCode }) => {
         resolve(roomCode);
-      });
+        socket.off("room_created", handler); // cleanup listener once done
+      };
+
+      socket.on("room_created", handler);
+      socket.emit("create_room", { username: user.username });
     });
   };
 
